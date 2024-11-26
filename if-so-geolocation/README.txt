@@ -3,7 +3,7 @@ Contributors: ifso
 Donate link: https://www.if-so.com/location-based-content-wordpress-plugin/?utm_source=WordPressGeo&utm_medium=Readme&utm_campaign=Donate%20link
 Tags: Geolocation, location-based content, geoIP, geolocation redirect, Geotargeting
 Requires at least: 4.0.1
-Tested up to: 6.6
+Tested up to: 6.7
 Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
