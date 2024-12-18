@@ -4,7 +4,7 @@ Donate link: https://www.if-so.com/location-based-content-wordpress-plugin/?utm_
 Tags: Geolocation, location-based content, geoIP, geolocation redirect, Geotargeting
 Requires at least: 4.0.1
 Tested up to: 6.7
-Stable tag: 1.4
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,7 +182,7 @@ Display the event time auto-adjusted to the user's time zone.
 
 == Installation ==
 
-1. Make sure you have the core If-So plugin installed on your site
+1. Make sure you have the <a href="https://wordpress.org/plugins/if-so/">core If-So plugin </a>installed on your site
 1. Go to your WordPress Control Panel
 1. Click "Plugins", then "Add New"
 1. Enter "If-So Geolocation" as a search term and click "Search Plugins"
@@ -202,14 +202,17 @@ If-So allows you to customize any element on the website, including titles, text
 
 
 == Screenshots ==
-1. Location-based content using a trigger - works with all page builder users
+1. Works with all page builder users - No coding required
 2. Location-based Elementor Elements
 3. Location-based Gutenberg Blocks
-4. Built-in stats
-5. Geolocation Dynamic Keyword Insertion (DKI) shortcodes
-6. User location selection (location override)
-7. Compatible with caching plugins
-8. Dynamic trigger 
+4. Geolocation RedirectsBuilt-in
+5. Target by continent, country, state, city, and timezone.
+6. Built-in stats
+7. Geolocation Dynamic Keyword Insertion (DKI) shortcodes
+8. User location selection (location override)
+9. Compatible with caching plugins
+10. Use the HTML5 Geolocation API and/or IP-to-location to detect the user's location.
+11. Create a trigger, select a condition, and paste the trigger's shortcode wherever you want to display the geotargeted content.
 
 
 
