@@ -32,6 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 class LocationOverrideGenerator extends ShortcodeGenerator {
+  selectedType = '';
   constructor(prefix, formSelector, shortcodeSelector, errorSelector, cssSelector, instantChange, previewContainerSelector, locationsTableSelector, styleElementSelector) {
     super(prefix, formSelector, shortcodeSelector, errorSelector, instantChange)
 
@@ -122,13 +123,16 @@ class LocationOverrideGenerator extends ShortcodeGenerator {
       [
         ["options"], (cat) => {
           let data = this.locationsTable.data
-          if ( data.length === 0 ) throw 'Please add locations to generate a shortcode'
+          if ( data.length === 0 ) throw 'Please add locations to generate a shortcode';
+          if(this.selectedType==='button' && data.length>1) throw 'Please select only 1 location to use the "Button" form type';
 
           let values = data.map(location => location.loc_val)
           let labels = data.map(location => location.loc_label)
           let result = this.joinOperatorNoFilter(cat, values, ',')
           let has_extra_data = false
           let extra_data = data.map(el=>{if(typeof(el.extra_fields)!=='undefined'){has_extra_data=true;return {fields:el.extra_fields};}return {};});
+
+          if(this.selectedType==='button') return result += ' selection="' + data[0]['loc_val'] + '"';
 
           if ( labels.some((label, i) => label !== values[i]) ) result += this.joinOperatorNoFilter('labels', labels, ',')
           if ( has_extra_data ) result+= (' extra-data="' + encodeURIComponent(JSON.stringify(extra_data)) + '"')
@@ -203,25 +207,37 @@ class LocationOverrideGenerator extends ShortcodeGenerator {
       [
         ["button-value", "redirect-value"], () => ''
       ],
+      [
+        ["buttonform-button-text"], (cat,vals,fd) =>{return this.omitDefault('button',vals,'');}
+      ],
     ]
   }
 
   initTypeOptions() {
     let form = document.querySelector(this.formSelector)
     let options = form.querySelectorAll('.type-option')
+    this.selectedType = options[0].dataset.value;
     let orientationField = form.querySelector('fieldset[name="orientation"]')
     let defaultOptionField = form.querySelector('fieldset[name="default-option"]')
 
     options.forEach(opt => {
         opt.addEventListener('click', (event) => {
-            options.forEach(o => o.classList.remove('selected'))
-            opt.classList.add('selected')
+          this.selectedType = opt.dataset.value;
+          options.forEach(o => o.classList.remove('selected'))
+          opt.classList.add('selected')
 
-            let isRadio = opt.dataset.value === 'radio'
-            defaultOptionField.disabled = isRadio
-            orientationField.disabled = !isRadio
+          let isRadio = opt.dataset.value === 'radio'
+          let isButton = opt.dataset.value==='button';
 
-            form.dispatchEvent( new Event('change') )
+          orientationField.disabled = !isRadio
+          defaultOptionField.disabled = isButton || isRadio;
+          form.querySelector('fieldset[name="autodetect-location"]').disabled = isButton;
+          form.querySelector('fieldset[name="show-flags"]').disabled = isButton;
+          form.querySelector('fieldset[name="button"]').disabled = isButton;
+          form.querySelector('fieldset[name="button"]').disabled = isButton;
+          form.querySelector('fieldset[name="buttonform-button-text"]').disabled = !isButton;
+
+          form.dispatchEvent( new Event('change') )
         })
     })
   }

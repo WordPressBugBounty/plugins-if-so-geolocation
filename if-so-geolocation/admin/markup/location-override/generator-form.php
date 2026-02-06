@@ -21,6 +21,9 @@
             <div class="type-option" data-value="radio">
                 Radio <?php include 'radio-icon.php';?>
             </div>
+            <div class="type-option" data-value="button">
+                Button <?php include 'button-icon.php';?>
+            </div>
         </div>
         <input type="text" name="type" style="display: none;">
 
@@ -46,12 +49,6 @@
         <div class="dissonant-geo-types-error" style="display: none;">
             <p class="red-noticebox">Your location-override selection form contains multiple location types (country, state, or city). Chosen locations must be of the same type.</p>
         </div>
-            
-        <a  class="add-locations-button"
-            href='<?php echo esc_url($locaton_generator_url); ?>'
-            title='Open Location Finder Helper' rel='permalink'
-            onclick="window.open('<?php echo esc_url($locaton_generator_url); ?>', 'newwindow', 'width=800,height=600'); return false;"
-        ><span>+</span><span>Add Locations</span></a>
 
         <input type="text" name="options" style="display: none; visibility: hidden;">
 
@@ -67,6 +64,37 @@
                 <div class="drag-table"></div>
             </div>
         </div>
+
+        <a  class="add-locations-button"
+            href='<?php echo esc_url($locaton_generator_url); ?>'
+            title='Open Location Finder Helper' rel='permalink'
+            onclick="window.open('<?php echo esc_url($locaton_generator_url); ?>', 'newwindow', 'width=800,height=600'); return false;"
+        ><span>+</span><span>Add Locations</span></a>
+
+        <h2 class="template-editor-title">Form Settings</h2>
+
+        <fieldset name="autodetect-location">
+            <input type="checkbox" name="autodetect-location">
+            <label for="autodetect-location">Auto-detect location</label>
+            <p class="description">If the user's location is among the selection field options, it will be set as the default label.</p>
+        </fieldset>
+
+        <fieldset name="ajax-render">
+            <input type="checkbox" name="ajax-render" checked>
+            <label for="ajax-render">Page Caching Compatiblity (Ajax loading)</label>
+            <p class="description">
+                Check this box if you are using a caching plugin.
+                The form will be loaded using Ajax to ensure that the user's selection is properly set.
+            </p>
+        </fieldset>
+
+        <fieldset name="show-flags">
+            <input type="checkbox" name="show-flags" checked>
+            <label for="show-flags">Show country flag</label>
+            <p class="description">
+                The country flag will be displayed alongside the location name in the selection field (<a href="https://www.if-so.com/faq-items/countries-flag-do-not-appear-on-my-location-override-form/?utm_source=Plugin&utm_medium=GeoOverrideGen&utm_campaign=geolocation_ext" target="_blank">on browsers that support emoji display</a>).
+            </p>
+        </fieldset>
             
         <fieldset name="default-option">
             <label>Default selection field label:</label>
@@ -74,31 +102,18 @@
         </fieldset>
     </fieldset>
 
-    <fieldset name="autodetect-location">
-        <input type="checkbox" name="autodetect-location">
-        <label for="autodetect-location">Auto-detect location</label>
-        <p class="description">If the user's location is among the selection field options, it will be set as the default label.</p>
+
+    <fieldset name="buttonform-button-text" disabled>
+        <div>
+            <label>Button text:</label>
+            <input name="buttonform-button-text" type="text" name="button-value" value="">
+        </div>
     </fieldset>
 
-    <fieldset name="button" onchange="locationOverrideGenerator.toggleFieldsetsByMultipleRadio('button-value', [['button', 'value']])">
-        <div>
-            <input type="radio" name="button" value="" checked="">
-            <label>Do not include a button</label>
-        </div>
-        <div>
-            <input type="radio" name="button" value="value">
-            <label>Include a button</label>
-        </div>
-        <fieldset name="button-value" onchange="event.preventDefault()" disabled>
-            <label>Button text:</label>
-            <input type="text" name="button-value" value="Submit">
-        </fieldset>
-        <p class="description">
-            Choose if you want to submit the user selection automaticaly after the user selects a location or only after clicking a button.
-        </p>
-    </fieldset>
 
     <input type="hidden" name="geo-type">
+
+    <h2 class="template-editor-title">Form Submission</h2>
 
     <fieldset name="redirect" onchange="
         let checkbox = document.querySelector(`input[name='redirect']`)
@@ -121,31 +136,44 @@
         </p>
     </fieldset>
 
-    <fieldset name="ajax-render">
-        <input type="checkbox" name="ajax-render" checked>
-        <label for="ajax-render">Page Caching Compatiblity (Ajax loading)</label>
+    <fieldset name="button" onchange="locationOverrideGenerator.toggleFieldsetsByMultipleRadio('button-value', [['button', 'value']])">
+        <div>
+            <input type="radio" name="button" value="" checked="">
+            <label>Do not include a button</label>
+        </div>
+        <div>
+            <input type="radio" name="button" value="value">
+            <label>Include a button</label>
+        </div>
+        <fieldset name="button-value" onchange="event.preventDefault()" disabled>
+            <label>Button text:</label>
+            <input type="text" name="button-value" value="Submit">
+        </fieldset>
         <p class="description">
-            Check this box if you are using a caching plugin.
-            The form will be loaded using Ajax to ensure that the user's selection is properly set.
+            Choose if you want to submit the user selection automaticaly after the user selects a location or only after clicking a button.
         </p>
     </fieldset>
 
-    <fieldset name="show-flags">
-        <input type="checkbox" name="show-flags" checked>
-        <label for="show-flags">Show country flag</label>
-        <p class="description">
-            The country flag will be displayed alongside the location name in the selection field (<a href="https://www.if-so.com/faq-items/countries-flag-do-not-appear-on-my-location-override-form/?utm_source=Plugin&utm_medium=GeoOverrideGen&utm_campaign=geolocation_ext" target="_blank">on browsers that support emoji display</a>).
-        </p>
-    </fieldset>
 
-    <fieldset name="classname">
-        <input type="text" name="classname" value="">
-        <p class="description">
-            Optional - assign a CSS Class
-        </p>
-    </fieldset>
 
     <!-- template editor section -->
-    <h2 class="template-editor-title">Design</h2>
+    <h2 class="template-editor-title">Form Design</h2>
+    <p class="header-description" style="border:none;margin:10px 0;">The form inherits your theme’s default styling for form elements. Use the style generator below to adjust its appearance if needed. Once completed, make sure to incorporate the following CSS into your page or website's stylesheet.  <a href="https://www.if-so.com/faq-items/how-to-add-new-css-to-my-page-or-website-3-methods/" target="_blank">Learn how.</a></p>
+    <fieldset name="classname">
+        <label for="classname">CSS Class</label>
+        <input type="text" name="classname" value="">
+        <p class="description">
+            Assign a CSS Class (optional)
+        </p>
+    </fieldset>
+    <div class="generated-css">
+        <textarea class="result-css" placeholder="Your generated CSS Style will appear here"></textarea>
+        <div class="copy-button-container">
+            <button class="copy-button have-copy-indicator" onclick="event.preventDefault(); locationOverrideGenerator.copyStyle();">
+                <span class="copy-button-icon">🗊</span>
+                Copy CSS
+            </button>
+        </div>
+    </div>
     <ifsotemplateeditor onchange="event.stopPropagation()" style="margin: 0 auto 0 0;"></ifsotemplateeditor>
 </form>

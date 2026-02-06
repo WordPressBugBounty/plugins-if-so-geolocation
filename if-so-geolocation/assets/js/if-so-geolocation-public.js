@@ -2,7 +2,7 @@
 (function( $ ) {
     $(document).ready(function () {
         checkForLocationRequests();
-        document.addEventListener('ifso_ajax_triggers_loaded',checkForLocationRequests);
+        document.addEventListener('ifso_ajax_content_loaded',checkForLocationRequests);
     })
 
     function checkForLocationRequests(){

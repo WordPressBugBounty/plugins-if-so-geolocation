@@ -1,8 +1,11 @@
+.ifso-geo-page-tab-geoOverride{
+  margin-top:-10px;
+}
 .template-editor-title {
   color: #3c434a;
   font-size: 20px;
   font-weight: 600;
-  margin: 30px auto 30px 0;
+  margin: 30px auto 10px 0;
 }
 
 /* editor style override */
@@ -29,11 +32,11 @@ div.ifso-pt-editor.inline .ifso-pt-editor-divider-line {
 div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
   line-height: 1.1;
   font-weight: 600;
-  font-size: 18px;
+}
+.ifso-pt-editor.inline .ifso-pt-editor-section{
+  margin-right:20px;
 }
 /* editor style override */
-
-
 
 
 
@@ -43,16 +46,24 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
 .generator-content {
   width: 100%;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2fr 0.75fr;
   column-gap: 20px;
-  align-items: baseline;
-  justify-content: center;
+  /*align-items: baseline;*/
   margin:  20px 20px 0 0;
+
+  justify-content: space-between;
+  align-items: stretch;
 }
 
-.generator-sidebar {
-  top: 45px;
-  position: sticky;
+@media (min-width: 2000px){
+  .generator-content{
+    display: flex;
+    justify-content: left;
+  }
+}
+
+.generator-content .generator-menu{
+  max-width: 680px;
 }
 
 .generator-menu-title {
@@ -78,6 +89,10 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
   .generator-sidebar {
       order: 0;
       position: static;
+      margin-bottom:30px;
+  }
+  .shortcode-generator-results{
+      padding : 20px 40px!important;
   }
 }
 /* generator menu css */
@@ -92,6 +107,14 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
 /* results tab css */
 .shortcode-generator-results {
   text-align: center;
+  background: #E5E6FF;
+  padding: 50px 40px;
+  height: 100%;
+  margin-top: -32px;
+}
+.shortcode-generator-results-inner{
+  top: 75px;
+  position: sticky;
 }
 .shortcode-generator-results * {
   color: #2c3338;
@@ -104,13 +127,14 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
   box-sizing: border-box;
   display: block;
   resize: none;
-  width: 280px;
-  height: 100px;
+  width: 100%;
+  height: 60px;
   padding: 5px 8px;
-  border: solid 1px #cacaca;
-  margin: 0 auto;
-  background-color: white;
+  border: none;
+  margin: 10px auto 0 auto;
+  background-color: #c5c7e7;
   cursor: auto;
+  font-size:13px;
 }
 
 .have-slim-scrollbar::-webkit-scrollbar-thumb {
@@ -126,14 +150,21 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
   width: 16px;
 }
 
-.shortcode-generator-results .copy-all-button {
+.shortcode-generator-results .copy-button {
   position: relative;
   text-align: center;
-  padding: 10px 16px 12px;
-  line-height: 1;
-  border-radius: 5px;
+  border-radius: 3px;
   margin: 10px auto 20px;
   cursor: pointer;
+  background: #696DDB;
+  color:#fff;
+  border:none;
+  font-size:13px;
+  line-height: 2.30769231;
+  padding: 0 12px;
+}
+.shortcode-generator-results .copy-all-button:hover{
+  background: #696DDB;
 }
 .shortcode-generator-results .copy-all-button span {
   color: inherit;
@@ -153,13 +184,9 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
 }
 
 .shortcode-generator-results .instructions {
-  width: 280px;
+  width: 100%;
   margin: 0 auto;
-}
-.shortcode-generator-results .instructions-link {
-  color: #2271b1;
-  font-style: italic;
-  display: inline-block;
+  color: #646970;
 }
 
 
@@ -182,32 +209,19 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
 }
 
 .shortcode-generator-results .copy-button-container {
-  width: 280px;
+  width: 100%;
   margin: 0 auto 20px;
 }
 
 .shortcode-generator-results .copy-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #888888;
-  background-color: #dddddd;
-  font-size: 14px;
-  padding: 1px 8px 2px;
-  margin: 0 0 0 auto;
-  border: unset;
-  cursor: pointer;
-  transition: background-color 0.15s ease-in-out;
-}
-.shortcode-generator-results .copy-button:hover {
-  background-color: #cccccc;
+  margin:10px auto;
 }
 .shortcode-generator-results .copy-button .copy-button-icon {
   line-height: 1;
   margin: 0 0 0 4px;
   outline: none;
+  color:#fff;
+  font-size: 16px;
 }
 
 
@@ -257,15 +271,16 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom:50px;
 }
 
 .shortcode-generator-results .preview-title {
   display: inline-block;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
-  color: #4e738b;
+  color: #3c434a;
   margin: 0 0 5px;
-  cursor: auto
+  cursor: auto;
 }
 .shortcode-generator-results .preview-container {
   box-sizing: border-box;
@@ -273,14 +288,14 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
   flex-direction: column;
   justify-content: center;
   text-align: left;
-  width: 280px;
+  width: 100%;
   min-height: 85px;
   padding: 18px 10px;
-  border: solid 1px #cacaca;
   margin: 0 0 20px; 
   color: #1e0547;
   background-color: white;
   font-size: 20px;
+  border-radius: 4px;
 }
 .shortcode-generator-results .preview-container > label {
   font-size: 14px;
@@ -344,6 +359,13 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
   height: 40px;
 }
 
+.location-override-generator .type-option[data-value="button"] svg{
+  height: 24px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 1px;
+}
+
 .location-override-generator .add-locations-button {
     display: inline-flex;
     align-items: center;
@@ -355,7 +377,7 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
     text-decoration: none;
     padding: 5px 18px 5px 5px;
     border: solid 1px currentColor;
-    margin: 10px auto 25px;
+    margin: 10px auto 0;
 }
 .location-override-generator .add-locations-button span:nth-child(1) {
   margin-right: 5px;
@@ -364,12 +386,16 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
 }
 
 .location-override-generator fieldset[name="orientation"] {
-  margin: 10px auto 0;
+  margin: 20px auto 0;
 }
 
 .location-override-generator fieldset[name="orientation"] label {
   display: inline-block;
   margin: 0 auto 4px;
+}
+
+.location-override-generator fieldset[name="orientation"]>label{
+  font-weight: bold;
 }
 
 .location-override-generator  fieldset[name="default-option"] {
@@ -533,7 +559,7 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
 .shortcode-generator fieldset {
   border: none;
   padding: 0;
-  margin: 0 0 20px;
+  margin: 10px 0;
   align-self: stretch;
 }
 .shortcode-generator fieldset:disabled {
@@ -572,8 +598,9 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
   opacity: 1;
 }
 
-.shortcode-generator input[type='checkbox'] {
+.shortcode-generator input[type='checkbox'], .shortcode-generator input[type='radio'] {
   margin-left: 0;
+  vertical-align: text-bottom;
 }
 
 .shortcode-generator input[name="submit"] {
@@ -591,9 +618,7 @@ div.ifso-pt-editor.inline .ifso-pt-editor-section-title {
 
 .shortcode-generator .description{
   font-size: inherit;
-  font-style: italic;
   margin: 0 0 14px;
-  /* border-bottom: 2px groove #f0f0f0; */
   padding-bottom: 6px;
 }
 
@@ -645,4 +670,20 @@ span[tooltip]:hover::after {
 .ifso-geo-page-tab-geoOverride .compat-notice{
   padding: 5px;
   display:inline-block;
+}
+
+.generated-css .result-css{
+  background: #ddd;
+}
+
+.generated-css, .generated-css .result-css{
+  width:100%;
+  margin-bottom:10px;
+}
+
+.generated-css .copy-button {
+  line-height: 2.30769231;
+  padding: 0 12px;
+  font-size:13px;
+  cursor:pointer;
 }

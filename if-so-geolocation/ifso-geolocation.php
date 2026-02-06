@@ -2,7 +2,7 @@
 /*
 Plugin Name: If-So Geolocation
 Description: Set up location-based content in minutes. No coding required. Works with any page builder. No need to sync an IP-to-location database.
-Version: 1.4.1
+Version: 1.5
 Author: If So Plugin
 Author URI: http://www.if-so.com/
 License: GPL-2.0+
@@ -19,6 +19,7 @@ if(!defined('IFSO_GEOLOCATION_ON')){
     define('IFSO_GEOLOCATION_ON',true);
     define('IFSO_GEOLOCATION_FILE',__FILE__);
     define('IFSO_GEOLOCATION_ADDON_DIR',__DIR__);
+    define('IFSO_GEOLOCATION_ADDON_VERSION','1.5');
 
     add_action( 'plugins_loaded', function(){
         if(defined('IFSO_PLUGIN_BASE_DIR') && IFSO_GEOLOCATION_ON){

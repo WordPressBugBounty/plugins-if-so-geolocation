@@ -63,4 +63,12 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  .preview-container .ifso-selection-form-onlybtn *{
+      display:none;
+  }
+
+  .preview-container .ifso-selection-form-onlybtn button[type="submit"]{
+      display:inline-block;
+  }
 </style>

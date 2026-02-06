@@ -14,7 +14,7 @@ if($type==='suspicious'){
 elseif($type==='ip_hist' && !empty($_GET['ip'])){
     $ip = sanitize_text_field($_GET['ip']);
     $ips = $logProcessor->find_ip_occurences($ip);
-    $row_names = ['User Agent','Date','Status'];
+    $row_names = ['URL','User Agent','Date','Status'];
 }
 $lines_processed = $logProcessor->get_last_processed_line();
 ?>
@@ -94,6 +94,7 @@ if(!empty($ips)){
         elseif($type==='ip_hist'){
             foreach ($ips as  $ipdata){
                 echo "<tr>";
+                echo '<td><a target="_blank" href="' . esc_url($ipdata['url']) .'">' . esc_url($ipdata['url']) . '</a></td>';
                 echo '<td>' . esc_html($ipdata['user-agent']) .'</td>';
                 echo '<td>' . esc_html($ipdata['date']) .'</td>';
                 echo '<td>' . esc_html($ipdata['status']) .'</td>';

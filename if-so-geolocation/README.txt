@@ -3,8 +3,8 @@ Contributors: ifso
 Donate link: https://www.if-so.com/location-based-content-wordpress-plugin/?utm_source=WordPressGeo&utm_medium=Readme&utm_campaign=Donate%20link
 Tags: Geolocation, location-based content, geoIP, geolocation redirect, Geotargeting
 Requires at least: 4.0.1
-Tested up to: 6.7
-Stable tag: 1.4.1
+Tested up to: 6.9
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,9 +27,9 @@ This plugin enhances the Geolocation capabilities of the core <a href="https://w
 
 == WHY IF-SO? ==
 
-* Simple to use - No coding is required
+* Show dynamic content based on City, State, Country, Continent, or Time zoneSimple to use - No coding is required
+* Geolocation DKi
 * No need to sync with an IP-to-location database
-* Show dynamic content based on City, State, Country, Continent, or Time zone
 * Works with any page builder
 * 100% compatible with all caching plugins (no need to disable the cache)
 * A simple way to improve engagement and conversion rates
@@ -86,7 +86,8 @@ With the manual user location selection option, users can override the location 
 
 == LOG GEOLOCATION REQUESTS ==
 
-Track bots that visit your site and exhaust your session quota. Log the geolocation requests to identify their IPs, analyze them,  and chose if you want to block them from the geolocation service. 
+Track bots that visit your site and exhaust your session quota. Log the geolocation requests to identify their IPs, analyze them,  and chose if you want to block them from the geolocation service.
+
 Although the site will remain open to visits from the blocked IPs, the geolocation service will be disabled for them and default content will be displayed instead of the location-based version.
 
 
@@ -217,6 +218,12 @@ If-So allows you to customize any element on the website, including titles, text
 
 
 == Changelog ==
+
+= 1.5 =
+* Added new feature – hide posts by geolocation
+* UI improvements
+* Geo request log – added request URL to the log
+* Bug fixes
 
 = 1.4 =
 * WordPress 6.5 compatibility

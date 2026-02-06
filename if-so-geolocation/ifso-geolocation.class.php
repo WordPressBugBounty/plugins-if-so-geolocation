@@ -4,6 +4,7 @@ namespace IfSo\Addons\Geolocation;
 include_once IFSO_PLUGIN_BASE_DIR . 'extensions/extension-base/ifso-extension-include.php';
 require_once (__DIR__ . '/ifso-geolocation-addon-settings.class.php');
 require_once (__DIR__ . '/services/geo-request-log-service.class.php');
+require_once (__DIR__ . '/includes/ifso-geolocation-post-excluder.class.php');
 require_once(IFSO_PLUGIN_BASE_DIR . 'services/geolocation-service/geolocation-service.class.php');
 
 use  IfSo\Services\GeolocationService;
@@ -19,6 +20,9 @@ if(class_exists('\IfSo\Addons\Base\ExtensionMain')){
             if(class_exists('IfSo\Addons\Geolocation\Settings')){
                 $this->addon_settings = new Settings();
             }
+
+            $post_excluder = new PostExclude\PostExcluder();
+            add_action('init',[$post_excluder,'exclude_saved_posts']);
 
             add_action('ifso_extra_sumbenu_items',function (){
                 add_submenu_page('',null,null,'manage_options','wpcdd_ifso_geo_log_analyzer',array($this,'display_geo_analysis_page'));

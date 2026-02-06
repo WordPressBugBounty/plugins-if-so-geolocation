@@ -5,11 +5,12 @@ use IfSo\Services\PluginSettingsService;
 
 class GeoRequestLogService{
     private static $instance;
-    private $default_log_location = IFSO_PLUGIN_BASE_DIR . "logs/geo_request.log";
-    private $log_location;
-    private $last_processed_line = 0;
-    public $minimum_ip_occurrences_for_suspicion = 15;
-    private $suspicious_ips_amount = 0;
+    private string $default_log_location = IFSO_PLUGIN_BASE_DIR . "logs/";
+    private string $log_file_name = 'geo_request.log';
+    private string $log_location;
+    private int $last_processed_line = 0;
+    public int $minimum_ip_occurrences_for_suspicion = 15;
+    private int $suspicious_ips_amount = 0;
 
     public static function get_instance(){
         if(empty(self::$instance))
@@ -18,7 +19,14 @@ class GeoRequestLogService{
     }
 
     protected function __construct(){
-        $this->log_location = $this->default_log_location;
+        if(!empty(wp_get_upload_dir()) && !empty(wp_get_upload_dir()['basedir'])){
+            $upload_dir = wp_get_upload_dir()['basedir'] . '/if-so/';
+            if(!is_dir($upload_dir))
+                wp_mkdir_p($upload_dir);
+            $this->log_location = $upload_dir . $this->log_file_name;
+        }
+        else
+            $this->log_location = $this->default_log_location. $this->log_file_name;
     }
 
     public function set_log_location($loc){
@@ -83,9 +91,9 @@ class GeoRequestLogService{
     }
 
     private function get_occurence_data_from_logline($ip,$line,&$occurences){
-        preg_match('/\[(.+)\].*\(ip\:(.+)\).*\(UA\:(.+)\).*\-(.+)/', $line, $line_data);
+        preg_match('/\[(.+)\].*\(ip\:(.+)\).*\(UA\:(.+)\).*\(URL\:(.+)\).*\-(.+)/', $line, $line_data);
         if(!empty($line_data[1]) && !empty($line_data[2]) && !empty($line_data[3]) && !empty($line_data[4]) && $ip===$line_data[2])
-            $occurences[] = ['date'=>$line_data[1],'ip'=>$line_data[2],'user-agent'=>$line_data[3],'status'=>trim($line_data[4])];
+            $occurences[] = ['date'=>$line_data[1],'ip'=>$line_data[2],'user-agent'=>$line_data[3],'url'=>$line_data[4],'status'=>trim($line_data[5])];
     }
 
     public function find_ip_occurences($ip){
@@ -98,13 +106,21 @@ class GeoRequestLogService{
 
     public function log_geo_request($ip,$success){
         if(PluginSettingsService\PluginSettingsService::get_instance()->extraOptions->geolocation['logGeoRequests']->get()){
-            $uAgent = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'Unknown';
-            $now_str = date('d-M-Y H:i:s');
-            $success_str = $success ? "SUCCESS" : "FAIL";
-            $logline = "[{$now_str}] - GeoIp request from (ip:{$ip}) - (UA:{$uAgent}) - {$success_str}" . PHP_EOL;
-            $file = fopen($this->log_location,"a+");
-            fwrite($file, $logline);
-            fclose($file);
+            try{
+                $uAgent = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'Unknown';
+                $now_str = date('d-M-Y H:i:s');
+                $success_str = $success ? "SUCCESS" : "FAIL";
+                $request = \IfSo\PublicFace\Services\AjaxTriggersService\AjaxTriggersService::get_instance()->get_request();
+                $request_url = !empty($request) ? $request->getRequestURL() : '';
+                $logline = "[{$now_str}] - GeoIp request from (ip:{$ip}) - (UA:{$uAgent}) - (URL:{$request_url}) - {$success_str}" . PHP_EOL;
+                $file = fopen($this->log_location,"a+");
+                fwrite($file, $logline);
+                fclose($file);
+            }
+            catch (\Exception $e){
+                error_log('Error logging If-So Geolocation request! ' . $e->getMessage());
+            }
+
         }
 
     }
